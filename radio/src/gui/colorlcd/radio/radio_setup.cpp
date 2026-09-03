@@ -931,6 +931,24 @@ static SetupLineDef setupLines[] = {
       });
     }
   },
+  {
+    // Thro mode
+    TR_THROTTLE_LABEL TR_MODE,
+    [](Window* parent, coord_t x, coord_t y) {
+      auto choice = new Choice(parent, {x, y, 0, 0}, 0, 1, GET_DEFAULT(g_eeGeneral.throttleMode),
+                          [=](uint8_t newValue) {
+                            // mixerTaskStop();
+                            g_eeGeneral.throttleMode = newValue;
+                            SET_DIRTY();
+                            // checkThrottleStick();
+                            // mixerTaskStart();
+                          });
+      choice->setTextHandler([](uint8_t value) {
+        return std::to_string(1 + value) + ": " + (value==1? TR_THRO_AUTO_CENTER:TR_THRO_NONE_CENTER);
+      });
+    }
+  },
+
 };
 
 RadioSetupPage::RadioSetupPage() : PageTab(STR_RADIO_SETUP, ICON_RADIO_SETUP, PAD_TINY) {}

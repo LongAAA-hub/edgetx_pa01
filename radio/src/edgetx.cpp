@@ -660,7 +660,7 @@ void checkAll(bool isBootCheck)
   checkSDfreeStorage();
   
   // we don't check the throttle stick if the radio is not calibrated
-  if (g_eeGeneral.chkSum == evalChkSum()) {
+  if (g_eeGeneral.chkSum == evalChkSum() && !g_eeGeneral.throttleMode) {
     checkThrottleStick();
   }
 

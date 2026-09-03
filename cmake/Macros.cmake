@@ -96,13 +96,19 @@ function(AddHardwareDefTarget output)
   endforeach()
 
   set(GEN_HW_DEFS ${CMAKE_CXX_COMPILER} ${HW_DEF_ARGS} -x c++-header -E -dM ${HW_DEF_SRC})
-  set(GEN_HW_DEFS ${GEN_HW_DEFS} | grep -v "^#define _" | sort)
-
   set(GEN_JSON ${PYTHON_EXECUTABLE} ${RADIO_DIRECTORY}/util/hw_defs/generate_hw_def.py)
   set(GEN_JSON ${GEN_JSON} -i defines -T ${FLAVOUR} -)
 
+  # Do not use a shell pipeline here. Ninja invokes custom commands through
+  # cmd.exe on Windows, where a quoted compiler path containing spaces breaks
+  # when it is combined with a pipeline.
+  set(HW_DEF_RAW ${CMAKE_CURRENT_BINARY_DIR}/${output}.defines)
+
   add_custom_command(OUTPUT ${output}
-    COMMAND ${GEN_HW_DEFS} | ${GEN_JSON} > ${output}
+    COMMAND ${GEN_HW_DEFS} > ${HW_DEF_RAW}
+    COMMAND ${PYTHON_EXECUTABLE} ${RADIO_DIRECTORY}/util/hw_defs/generate_hw_def.py
+      -i defines -T ${FLAVOUR} ${HW_DEF_RAW} > ${output}
+    BYPRODUCTS ${HW_DEF_RAW}
     DEPENDS ${HW_DEF_SRC} ${RADIO_DIRECTORY}/util/hw_defs/generate_hw_def.py
     )
 

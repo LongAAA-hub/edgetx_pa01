@@ -1249,3 +1249,6 @@
 #define TR_WIDGET_SIZE            "小部件尺寸"
 
 #define TR_DEL_DIR_NOT_EMPTY      "Directory must be empty before deletion"
+
+#define TR_THRO_AUTO_CENTER      "回中"
+#define TR_THRO_NONE_CENTER      "不回中"

@@ -1065,6 +1065,7 @@ PACK(struct RadioData {
     return backlightBright;
 #endif
   });
+  uint8_t throttleMode:1;
 });
 
 #undef SWITCHES_WARNING_DATA
