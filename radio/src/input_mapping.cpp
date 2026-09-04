@@ -20,11 +20,12 @@
  */
 
 #include "input_mapping.h"
-#include "hal/adc_driver.h"
 
 #include "edgetx.h"
+#include "hal/adc_driver.h"
 
-#define _CHANNEL_ORDER(a,b,c,d) \
+
+#define _CHANNEL_ORDER(a, b, c, d) \
   (((a) & 0x3) | (((b) & 0x3) << 2) | (((c) & 0x3) << 4) | (((d) & 0x3) << 6))
 
 #if defined(SURFACE_RADIO)
@@ -33,8 +34,8 @@
 #define TH 1
 
 const uint8_t _channel_order_lut[] = {
-  _CHANNEL_ORDER(ST,TH,0,0),
-  _CHANNEL_ORDER(TH,ST,0,0),
+    _CHANNEL_ORDER(ST, TH, 0, 0),
+    _CHANNEL_ORDER(TH, ST, 0, 0),
 };
 
 #else
@@ -45,30 +46,18 @@ const uint8_t _channel_order_lut[] = {
 #define AIL 3
 
 const uint8_t _channel_order_lut[] = {
-  _CHANNEL_ORDER(RUD,ELE,THR,AIL),
-  _CHANNEL_ORDER(RUD,ELE,AIL,THR),
-  _CHANNEL_ORDER(RUD,THR,ELE,AIL),
-  _CHANNEL_ORDER(RUD,THR,AIL,ELE),
-  _CHANNEL_ORDER(RUD,AIL,ELE,THR),
-  _CHANNEL_ORDER(RUD,AIL,THR,ELE),
-  _CHANNEL_ORDER(ELE,RUD,THR,AIL),
-  _CHANNEL_ORDER(ELE,RUD,AIL,THR),
-  _CHANNEL_ORDER(ELE,THR,RUD,AIL),
-  _CHANNEL_ORDER(ELE,THR,AIL,RUD),
-  _CHANNEL_ORDER(ELE,AIL,RUD,THR),
-  _CHANNEL_ORDER(ELE,AIL,THR,RUD),
-  _CHANNEL_ORDER(THR,RUD,ELE,AIL),
-  _CHANNEL_ORDER(THR,RUD,AIL,ELE),
-  _CHANNEL_ORDER(THR,ELE,RUD,AIL),
-  _CHANNEL_ORDER(THR,ELE,AIL,RUD),
-  _CHANNEL_ORDER(THR,AIL,RUD,ELE),
-  _CHANNEL_ORDER(THR,AIL,ELE,RUD),
-  _CHANNEL_ORDER(AIL,RUD,ELE,THR),
-  _CHANNEL_ORDER(AIL,RUD,THR,ELE),
-  _CHANNEL_ORDER(AIL,ELE,RUD,THR),
-  _CHANNEL_ORDER(AIL,ELE,THR,RUD),
-  _CHANNEL_ORDER(AIL,THR,RUD,ELE),
-  _CHANNEL_ORDER(AIL,THR,ELE,RUD),
+    _CHANNEL_ORDER(RUD, ELE, THR, AIL), _CHANNEL_ORDER(RUD, ELE, AIL, THR),
+    _CHANNEL_ORDER(RUD, THR, ELE, AIL), _CHANNEL_ORDER(RUD, THR, AIL, ELE),
+    _CHANNEL_ORDER(RUD, AIL, ELE, THR), _CHANNEL_ORDER(RUD, AIL, THR, ELE),
+    _CHANNEL_ORDER(ELE, RUD, THR, AIL), _CHANNEL_ORDER(ELE, RUD, AIL, THR),
+    _CHANNEL_ORDER(ELE, THR, RUD, AIL), _CHANNEL_ORDER(ELE, THR, AIL, RUD),
+    _CHANNEL_ORDER(ELE, AIL, RUD, THR), _CHANNEL_ORDER(ELE, AIL, THR, RUD),
+    _CHANNEL_ORDER(THR, RUD, ELE, AIL), _CHANNEL_ORDER(THR, RUD, AIL, ELE),
+    _CHANNEL_ORDER(THR, ELE, RUD, AIL), _CHANNEL_ORDER(THR, ELE, AIL, RUD),
+    _CHANNEL_ORDER(THR, AIL, RUD, ELE), _CHANNEL_ORDER(THR, AIL, ELE, RUD),
+    _CHANNEL_ORDER(AIL, RUD, ELE, THR), _CHANNEL_ORDER(AIL, RUD, THR, ELE),
+    _CHANNEL_ORDER(AIL, ELE, RUD, THR), _CHANNEL_ORDER(AIL, ELE, THR, RUD),
+    _CHANNEL_ORDER(AIL, THR, RUD, ELE), _CHANNEL_ORDER(AIL, THR, ELE, RUD),
 };
 #endif
 
@@ -81,12 +70,8 @@ mode3 ail ele thr rud
 mode4 ail thr ele rud
 */
 
-const uint8_t _input_mode_lut[]  = {
-    RUD, ELE, THR, AIL,
-    RUD, THR, ELE, AIL,
-    AIL, ELE, THR, RUD,
-    AIL, THR, ELE, RUD
-};
+const uint8_t _input_mode_lut[] = {RUD, ELE, THR, AIL, RUD, THR, ELE, AIL,
+                                   AIL, ELE, THR, RUD, AIL, THR, ELE, RUD};
 
 #endif
 
@@ -142,8 +127,4 @@ uint8_t inputMappingGetChannelOrder(uint8_t order)
   return _channel_order_lut[order];
 }
 
-uint8_t inputMappingGetMaxChannelOrder()
-{
-  return DIM(_channel_order_lut);
-}
-
+uint8_t inputMappingGetMaxChannelOrder() { return DIM(_channel_order_lut); }
