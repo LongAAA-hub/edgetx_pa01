@@ -553,6 +553,12 @@ void evalInputs(uint8_t mode)
 #if defined(STICK_DEAD_ZONE)
   int16_t deadZoneOffset =
       g_eeGeneral.stickDeadZone ? 2 << (g_eeGeneral.stickDeadZone - 1) : 0;
+#if defined(KNOB_DEFAULT_DEADZONE) && (0 != KNOB_DEFAULT_DEADZONE)
+  int16_t deadZoneOffset1 = deadZoneOffset + KNOB_DEFAULT_DEADZONE;
+#endif
+#if defined(HALL_STICK_DEFAULT_DEADZONE) && (0 != HALL_STICK_DEFAULT_DEADZONE)
+  deadZoneOffset += HALL_STICK_DEFAULT_DEADZONE;
+#endif
 #endif
 
   auto max_calib_analogs = adcGetInputOffset(ADC_INPUT_VBAT);
