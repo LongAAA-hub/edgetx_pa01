@@ -19,17 +19,22 @@
  * GNU General Public License for more details.
  */
 
+#include "edgetx.h"
 #include "hal/abnormal_reboot.h"
 #include "inactivity_timer.h"
-#include "edgetx.h"
 #include "stamp.h"
 #include "theme_manager.h"
+
 
 extern void checkSpeakerVolume();
 
 #if defined(VERSION_TAG)
 const std::string ver_str = "" VERSION_TAG;
 const std::string nam_str = "" CODENAME;
+#elif defined(VENDOR_STR)
+const std::string ver_str = "" VERSION VENDOR_VER;
+const std::string nam_str = "" VENDOR_STR;
+const std::string git_str = "(" GIT_STR ")";
 #else
 const std::string ver_str = "" VERSION;
 const std::string nam_str = "" VERSION_SUFFIX;
@@ -64,11 +69,16 @@ void drawSplash()
     coord_t w = LAYOUT_SCALE(200);
     x = (LANDSCAPE ? LCD_W * 4 / 5 : LCD_W / 2) - w / 2;
     y = LCD_H - EdgeTxStyles::STD_FONT_HEIGHT * 4;
-    new StaticText(splashScreen, {x, y, w, EdgeTxStyles::STD_FONT_HEIGHT}, ver_str.c_str(), COLOR_GREY_INDEX, CENTERED);
-    new StaticText(splashScreen, {x, y + EdgeTxStyles::STD_FONT_HEIGHT, w, EdgeTxStyles::STD_FONT_HEIGHT},
+    new StaticText(splashScreen, {x, y, w, EdgeTxStyles::STD_FONT_HEIGHT},
+                   ver_str.c_str(), COLOR_GREY_INDEX, CENTERED);
+    new StaticText(splashScreen,
+                   {x, y + EdgeTxStyles::STD_FONT_HEIGHT, w,
+                    EdgeTxStyles::STD_FONT_HEIGHT},
                    nam_str.c_str(), COLOR_GREY_INDEX, CENTERED);
 #if !defined(VERSION_TAG)
-    new StaticText(splashScreen, {x, y + EdgeTxStyles::STD_FONT_HEIGHT * 2, w, EdgeTxStyles::STD_FONT_HEIGHT},
+    new StaticText(splashScreen,
+                   {x, y + EdgeTxStyles::STD_FONT_HEIGHT * 2, w,
+                    EdgeTxStyles::STD_FONT_HEIGHT},
                    git_str.c_str(), COLOR_GREY_INDEX, CENTERED);
 #endif
   }
@@ -137,8 +147,8 @@ void waitSplash()
 
 static LAYOUT_VAL_SCALED(SHUTDOWN_CIRCLE_RADIUS, 75)
 
-const int8_t bmp_shutdown_xo[] = {0, 0, -SHUTDOWN_CIRCLE_RADIUS,
-                                  -SHUTDOWN_CIRCLE_RADIUS};
+    const int8_t bmp_shutdown_xo[] = {0, 0, -SHUTDOWN_CIRCLE_RADIUS,
+                                      -SHUTDOWN_CIRCLE_RADIUS};
 const int8_t bmp_shutdown_yo[] = {-SHUTDOWN_CIRCLE_RADIUS, 0, 0,
                                   -SHUTDOWN_CIRCLE_RADIUS};
 
@@ -152,13 +162,13 @@ void drawSleepBitmap()
   if (shutdownWindow) {
     shutdownWindow->clear();
   } else {
-    shutdownWindow =
-        new Window(MainWindow::instance(), {0, 0, LCD_W, LCD_H});
+    shutdownWindow = new Window(MainWindow::instance(), {0, 0, LCD_W, LCD_H});
     shutdownWindow->setWindowFlag(OPAQUE);
     etx_solid_bg(shutdownWindow->getLvObj(), COLOR_THEME_PRIMARY1_INDEX);
   }
 
-  (new StaticIcon(shutdownWindow, 0, 0, ICON_SHUTDOWN, COLOR_THEME_PRIMARY2_INDEX))
+  (new StaticIcon(shutdownWindow, 0, 0, ICON_SHUTDOWN,
+                  COLOR_THEME_PRIMARY2_INDEX))
       ->center(LCD_W, LCD_H);
 
   LvglWrapper::instance()->run();
@@ -180,8 +190,7 @@ void drawShutdownAnimation(uint32_t duration, uint32_t totalDuration,
   if (totalDuration == 0) return;
 
   if (shutdownWindow == nullptr) {
-    shutdownWindow =
-        new Window(MainWindow::instance(), {0, 0, LCD_W, LCD_H});
+    shutdownWindow = new Window(MainWindow::instance(), {0, 0, LCD_W, LCD_H});
     shutdownWindow->setWindowFlag(OPAQUE);
     etx_solid_bg(shutdownWindow->getLvObj(), COLOR_THEME_PRIMARY1_INDEX);
 
@@ -196,7 +205,8 @@ void drawShutdownAnimation(uint32_t duration, uint32_t totalDuration,
                            shutdownSplashImg->width(),
                            shutdownSplashImg->height(), LV_IMG_CF_TRUE_COLOR);
     }
-    (new StaticIcon(shutdownWindow, 0, 0, ICON_SHUTDOWN, COLOR_THEME_PRIMARY2_INDEX))
+    (new StaticIcon(shutdownWindow, 0, 0, ICON_SHUTDOWN,
+                    COLOR_THEME_PRIMARY2_INDEX))
         ->center(LCD_W, LCD_H);
 
     for (int i = 0; i < 4; i += 1) {
@@ -219,12 +229,13 @@ void drawFatalErrorScreen(const char* message)
   static Window* fatalErrorWindow = nullptr;
 
   if (!fatalErrorWindow) {
-    fatalErrorWindow =
-        new Window(MainWindow::instance(), {0, 0, LCD_W, LCD_H});
+    fatalErrorWindow = new Window(MainWindow::instance(), {0, 0, LCD_W, LCD_H});
     fatalErrorWindow->setWindowFlag(OPAQUE);
     etx_solid_bg(fatalErrorWindow->getLvObj(), COLOR_BLACK_INDEX);
 
-    new StaticText(fatalErrorWindow, rect_t{0, LCD_H / 2 - EdgeTxStyles::STD_FONT_HEIGHT, LCD_W, EdgeTxStyles::STD_FONT_HEIGHT * 2},
+    new StaticText(fatalErrorWindow,
+                   rect_t{0, LCD_H / 2 - EdgeTxStyles::STD_FONT_HEIGHT, LCD_W,
+                          EdgeTxStyles::STD_FONT_HEIGHT * 2},
                    message, COLOR_WHITE_INDEX, FONT(XL) | CENTERED);
   }
 

@@ -554,7 +554,7 @@ endif()
 if(BOOTLOADER)
   add_subdirectory(bootloader)
   include_directories(${CMAKE_CURRENT_BINARY_DIR}/bootloader)
-  set(RADIO_DEPENDENCIES ${RADIO_DEPENDENCIES} bootloader)
+  set(RADIO_DEPENDENCIES ${RADIO_DEPENDENCIES} bootloader hal_keys_gen)
 endif()
 
 add_definitions(-DFREE_RTOS)

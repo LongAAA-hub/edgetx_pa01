@@ -24,7 +24,11 @@
 #include "edgetx.h"
 #include "stamp.h"
 
-#if defined(VERSION_TAG)
+#if defined(VENDOR_STR)
+const std::string about_str =
+    "EdgeTX"
+    " (" VERSION VENDOR_VER VENDOR_STR ")";
+#elif defined(VERSION_TAG)
 const std::string about_str =
     "EdgeTX"
     " (" VERSION_TAG
@@ -35,15 +39,15 @@ const std::string about_str =
     "EdgeTX"
     " (" VERSION "-" VERSION_SUFFIX ")";
 #endif
+
 const std::string copyright_str = "Copyright (C) " BUILD_YEAR " EdgeTX";
 const std::string edgetx_url = "https://edgetx.org";
 
-AboutUs::AboutUs() :
-    BaseDialog(STR_ABOUT_US, true, VIEW_W, LV_SIZE_CONTENT)
+AboutUs::AboutUs() : BaseDialog(STR_ABOUT_US, true, VIEW_W, LV_SIZE_CONTENT)
 {
   new StaticText(form, {0, 0, LV_PCT(100), LV_SIZE_CONTENT},
-                 about_str + "\n" + copyright_str,
-                 COLOR_THEME_SECONDARY1_INDEX, CENTERED);
+                 about_str + "\n" + copyright_str, COLOR_THEME_SECONDARY1_INDEX,
+                 CENTERED);
 
   auto qrBox = new Window(form, {0, 0, LV_PCT(100), QR_SZ});
   auto qr = new QRCode(qrBox, 0, 0, QR_SZ, edgetx_url);
