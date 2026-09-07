@@ -1,0 +1,14 @@
+{
+  "clangd.enable": false,
+  "C_Cpp.intelliSenseEngine": "default",
+  "C_Cpp.default.compileCommands": "${workspaceFolder}/build/arm-none-eabi/compile_commands.json",
+  "C_Cpp.files.exclude": {
+    "radio/src/targets/horus/**": true,
+    "radio/src/targets/nv14/**": true,
+    "radio/src/targets/pl18/**": true,
+    "radio/src/targets/st16/**": true,
+    "radio/src/targets/taranis/**": true,
+    "radio/src/targets/stm32h7s78-dk/**": true,
+    "radio/src/targets/simu/**": true
+  }
+}

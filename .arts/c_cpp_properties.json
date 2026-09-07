@@ -1,0 +1,81 @@
+{
+  "configurations": [
+    {
+      "name": "PA01 ARM",
+      "compilerPath": "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/bin/arm-none-eabi-g++.exe",
+      "compileCommands": [
+        "${workspaceFolder}/build/arm-none-eabi/compile_commands.json"
+      ],
+      "cStandard": "c17",
+      "cppStandard": "gnu++17",
+      "intelliSenseMode": "gcc-arm",
+      "includePath": [
+        "${workspaceFolder}/radio/src",
+        "${workspaceFolder}/radio/src/targets/pa01",
+        "${workspaceFolder}/radio/src/targets/common/arm/stm32",
+        "${workspaceFolder}/radio/src/targets/common/arm/stm32/h7",
+        "${workspaceFolder}/radio/src/boards/generic_stm32",
+        "${workspaceFolder}/radio/src/thirdparty/CMSIS/Include",
+        "${workspaceFolder}/radio/src/thirdparty/CMSIS",
+        "${workspaceFolder}/radio/src/thirdparty/CMSIS/Device/ST/STM32H7xx/Include",
+        "${workspaceFolder}/radio/src/thirdparty",
+        "${workspaceFolder}/radio/src/thirdparty/STM32H7xx_HAL_Driver/Inc",
+        "${workspaceFolder}/radio/src/thirdparty/FreeRTOS/include",
+        "${workspaceFolder}/radio/src/thirdparty/FreeRTOS/portable/GCC/ARM_CM4F",
+        "${workspaceFolder}/radio/src/thirdparty/FatFs",
+        "${workspaceFolder}/radio/src/thirdparty/Lua/src",
+        "${workspaceFolder}/radio/src/gui",
+        "${workspaceFolder}/radio/src/gui/colorlcd",
+        "${workspaceFolder}/radio/src/gui/colorlcd/libui",
+        "${workspaceFolder}/radio/src/gui/colorlcd/layouts",
+        "${workspaceFolder}/radio/src/gui/colorlcd/model",
+        "${workspaceFolder}/radio/src/gui/colorlcd/radio",
+        "${workspaceFolder}/radio/src/gui/colorlcd/module",
+        "${workspaceFolder}/radio/src/gui/colorlcd/mainview",
+        "${workspaceFolder}/radio/src/gui/colorlcd/themes",
+        "${workspaceFolder}/radio/src/gui/colorlcd/controls",
+        "${workspaceFolder}/build/arm-none-eabi/radio/src"
+      ],
+      "defines": [
+        "PCBPA01",
+        "PCBHORUS",
+        "PCBFLYSKY",
+        "RADIO_PA01",
+        "STM32",
+        "STM32H7",
+        "STM32H750ZBTx",
+        "STM32H750xx",
+        "CPUARM",
+        "COLORLCD",
+        "LIBOPENUI",
+        "FREE_RTOS",
+        "SDRAM",
+        "CCMRAM",
+        "HARDWARE_KEYS",
+        "HARDWARE_INTERNAL_MODULE",
+        "HARDWARE_EXTERNAL_MODULE",
+        "INTERNAL_MODULE_AFHDS3",
+        "CROSSFIRE",
+        "AFHDS3",
+        "GUI",
+        "AUDIO",
+        "VOICE",
+        "LUA",
+        "RTCLOCK",
+        "FIRMWARE_QSPI",
+        "FIRMWARE_FORMAT_UF2",
+        "TRANSLATIONS=\"EN\"",
+        "TRANSLATIONS_EN"
+      ],
+      "browse": {
+        "path": [
+          "${workspaceFolder}/radio/src",
+          "${workspaceFolder}/radio/src/targets",
+          "${workspaceFolder}/radio/src/thirdparty"
+        ],
+        "limitSymbolsToIncludedHeaders": true
+      }
+    }
+  ],
+  "version": 4
+}

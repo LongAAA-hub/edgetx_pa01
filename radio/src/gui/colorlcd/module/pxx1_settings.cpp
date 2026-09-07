@@ -54,7 +54,9 @@ PXX1AntennaSettings::PXX1AntennaSettings(Window* parent,
         } else {
           md->pxx.antennaMode = antenna;
           SET_DIRTY();
+#if defined(EXTERNAL_ANTENNA)
           checkExternalAntenna();
+#endif
         }
       });
 

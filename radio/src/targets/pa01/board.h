@@ -57,7 +57,9 @@ void boardInit();
 void boardOff();
 
 // CPU Unique ID
+#ifndef LEN_CPU_UID
 #define LEN_CPU_UID (3 * 8 + 2)
+#endif
 void getCPUUniqueID(char* s);
 
 // Flash Write driver

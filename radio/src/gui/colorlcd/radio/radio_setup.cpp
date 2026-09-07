@@ -943,7 +943,7 @@ static SetupLineDef setupLines[] = {
                             // checkThrottleStick();
                             // mixerTaskStart();
                           });
-      choice->setTextHandler([](uint8_t value) {
+      choice->setTextHandler([](int value) {
         return std::to_string(1 + value) + ": " + (value==1? TR_THRO_AUTO_CENTER:TR_THRO_NONE_CENTER);
       });
     }

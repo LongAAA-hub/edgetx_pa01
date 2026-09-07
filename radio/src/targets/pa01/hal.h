@@ -23,7 +23,7 @@
 #define _HAL_H_
 
 #define VENDOR_STR "flysky"
-#define VENDOR_VER "-7"
+#define VENDOR_VER "-1"
 #define CPU_FREQ 400000000
 
 #define PERI1_FREQUENCY 100000000
