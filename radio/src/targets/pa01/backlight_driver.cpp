@@ -57,6 +57,8 @@ void backlightInit()
   LL_TIM_SetAutoReload(_bl_timer.TIMx, 100);
   stm32_pulse_set_cmp_val(&_bl_timer, 0);
   LL_TIM_EnableCounter(_bl_timer.TIMx);
+
+  backlightEnable(100);
 }
 
 uint8_t lastDutyCycle = 0;

@@ -908,3 +908,5 @@ extern bool modelTelemetryEnabled();
 
 int pwrDelayFromYaml(int delay);
 int pwrDelayToYaml(int delay);
+
+#define DEBUG_2_11_7_1 1

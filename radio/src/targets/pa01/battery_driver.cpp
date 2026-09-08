@@ -655,10 +655,13 @@ void rgbChargeInit(void) {
 }
 
 constexpr uint16_t vbatLedTable[] = {650, 720, 760, 800, 823 };
-void updateBatteryState(uint8_t rgb_state) {
+void updateBatteryState(uint8_t rgb_state) { 
+
   uint16_t  bat_v = getBatteryVoltage()*BAT_VOL_FACTOR;
   uint8_t power_level = POWER_LEVEL_NONE;
+  #if !DEBUG_2_11_7_1
   static uint8_t last_power_level = POWER_LEVEL_NONE;
+  #endif
 
   if (bat_v < vbatLedTable[0]) {
     power_level = POWER_LEVEL_CRITICAL;
@@ -674,6 +677,7 @@ void updateBatteryState(uint8_t rgb_state) {
     power_level = POWER_LEVEL_FULL;
   }
 
+  #if !DEBUG_2_11_7_1
   if( last_power_level != POWER_LEVEL_NONE )
   {
     if(power_level<last_power_level)
@@ -681,9 +685,12 @@ void updateBatteryState(uint8_t rgb_state) {
       power_level=last_power_level;
     }
   }
+  #endif
 
   rgbBatteryLevelInfo(power_level, rgb_state);
   ledLoop();
+  #if !DEBUG_2_11_7_1
   last_power_level = power_level;
+  #endif
 }
 
